@@ -19,5 +19,6 @@ namespace ShopEnMart.Data
         public Nullable<int> RoleId { get; set; }
     
         public virtual Roles Roles { get; set; }
+        public virtual Members Members { get; set; }
     }
 }

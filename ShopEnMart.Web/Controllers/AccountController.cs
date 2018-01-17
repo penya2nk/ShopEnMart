@@ -33,11 +33,7 @@ namespace ShopEnMart.Controllers
                     Session["MemberId"] = user.MemberId;
                     Response.Cookies["MemberName"].Value = user.FirstName;
                     var roles = _unitOfWork.GetRepositoryInstance<MemberRole>().GetFirstOrDefaultByParameter(i => i.MemberId == user.MemberId);
-                    if (roles != null && roles.RoleId != 1)
-                    {
-                        Response.Cookies["MemberRole"].Value = _unitOfWork.GetRepositoryInstance<Roles>().GetFirstOrDefaultByParameter(i => i.RoleId == roles.RoleId).RoleName;
-                    }
-                    else
+                    if (roles == null)
                     {
                         ModelState.AddModelError("Password", "Invalid username or password");
                         return View(model);
@@ -124,7 +120,6 @@ namespace ShopEnMart.Controllers
             return RedirectToAction("Index", "Home");
         }
         #endregion
-
 
         #region ForgotPassword ...
         [HttpGet]

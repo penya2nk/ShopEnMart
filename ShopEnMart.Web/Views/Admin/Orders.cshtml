@@ -1,7 +1,7 @@
 ﻿@model List<ShopEnMart.Data.Cart>
 @{
     ViewBag.Title = "Orders";
-    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var orders = Model.GroupBy(i => i.ProductId).Select(i => i.FirstOrDefault()).ToList();
 }
 <div class="rightpart">

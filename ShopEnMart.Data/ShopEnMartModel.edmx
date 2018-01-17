@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShopEnMartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ShopEnMartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="CartId" />
@@ -117,6 +117,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Cart_Member">
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Category_Product">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -129,7 +141,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Roles_MemberRole">
+        <Association Name="FK_MemberRole_Member">
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+          <End Role="MemberRole" Type="Self.MemberRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberRole">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Roles_MemberRole">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
@@ -140,6 +164,18 @@
             </Principal>
             <Dependent Role="MemberRole">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetails_Member">
+          <End Role="Members" Type="Self.Members" Multiplicity="0..1" />
+          <End Role="ShippingDetails" Type="Self.ShippingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="ShippingDetails">
+              <PropertyRef Name="MemberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -166,17 +202,28 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
+          <AssociationSet Name="FK_Cart_Member" Association="Self.FK_Cart_Member">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
           <AssociationSet Name="FK_Category_Product" Association="Self.FK_Category_Product">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="fk_Roles_MemberRole" Association="Self.fk_Roles_MemberRole">
+          <AssociationSet Name="FK_MemberRole_Member" Association="Self.FK_MemberRole_Member">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="MemberRole" EntitySet="MemberRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Roles_MemberRole" Association="Self.FK_Roles_MemberRole">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="MemberRole" EntitySet="MemberRole" />
           </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetails_Member" Association="Self.FK_ShippingDetails_Member">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ShippingDetails" EntitySet="ShippingDetails" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShopEnMartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -193,6 +240,7 @@
           <Property Name="ShippingDetailId" Type="Int32" />
           <NavigationProperty Name="CartStatus" Relationship="Self.FK__Cart__CartStatus__30F848ED" FromRole="Cart" ToRole="CartStatus" />
           <NavigationProperty Name="Product" Relationship="Self.FK__Cart__ProductId__32E0915F" FromRole="Cart" ToRole="Product" />
+          <NavigationProperty Name="Members" Relationship="ShopEnMartModel.FK_Cart_Member" FromRole="Cart" ToRole="Members" />
         </EntityType>
         <EntityType Name="CartStatus">
           <Key>
@@ -220,6 +268,7 @@
           <Property Name="MemberId" Type="Int32" />
           <Property Name="RoleId" Type="Int32" />
           <NavigationProperty Name="Roles" Relationship="Self.fk_Roles_MemberRole" FromRole="MemberRole" ToRole="Roles" />
+          <NavigationProperty Name="Members" Relationship="ShopEnMartModel.FK_MemberRole_Member" FromRole="MemberRole" ToRole="Members" />
         </EntityType>
         <EntityType Name="Members">
           <Key>
@@ -234,6 +283,9 @@
           <Property Name="IsDelete" Type="Boolean" />
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Cart" Relationship="ShopEnMartModel.FK_Cart_Member" FromRole="Members" ToRole="Cart" />
+          <NavigationProperty Name="MemberRole" Relationship="ShopEnMartModel.FK_MemberRole_Member" FromRole="Members" ToRole="MemberRole" />
+          <NavigationProperty Name="ShippingDetails" Relationship="ShopEnMartModel.FK_ShippingDetails_Member" FromRole="Members" ToRole="ShippingDetails" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -275,6 +327,7 @@
           <Property Name="OrderId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AmountPaid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Members" Relationship="ShopEnMartModel.FK_ShippingDetails_Member" FromRole="ShippingDetails" ToRole="Members" />
         </EntityType>
         <Association Name="FK__Cart__CartStatus__30F848ED">
           <End Role="CartStatus" Type="Self.CartStatus" Multiplicity="0..1" />
@@ -352,11 +405,23 @@
             <End Role="MemberRole" EntitySet="MemberRole" />
           </AssociationSet>
           <FunctionImport Name="MemberShoppingCartDetails" ReturnType="Collection(ShopEnMartModel.MemberShoppingCartDetails_Result)">
-            <Parameter Name="memberId" Mode="In" Type="Int32" />
+          <Parameter Name="memberId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Search" ReturnType="Collection(ShopEnMartModel.Search_Result)">
-            <Parameter Name="searchKey" Mode="In" Type="String" />
+          <Parameter Name="searchKey" Mode="In" Type="String" />
           </FunctionImport>
+          <AssociationSet Name="FK_Cart_Member" Association="ShopEnMartModel.FK_Cart_Member">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberRole_Member" Association="ShopEnMartModel.FK_MemberRole_Member">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="MemberRole" EntitySet="MemberRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetails_Member" Association="ShopEnMartModel.FK_ShippingDetails_Member">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ShippingDetails" EntitySet="ShippingDetails" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="MemberShoppingCartDetails_Result">
           <Property Type="Int32" Name="CartId" Nullable="false" />
@@ -374,6 +439,42 @@
           <Property Type="String" Name="ProductName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <Association Name="FK_Cart_Member">
+          <End Type="ShopEnMartModel.Members" Role="Members" Multiplicity="0..1" />
+          <End Type="ShopEnMartModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberRole_Member">
+          <End Type="ShopEnMartModel.Members" Role="Members" Multiplicity="0..1" />
+          <End Type="ShopEnMartModel.MemberRole" Role="MemberRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberRole">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetails_Member">
+          <End Type="ShopEnMartModel.Members" Role="Members" Multiplicity="0..1" />
+          <End Type="ShopEnMartModel.ShippingDetails" Role="ShippingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="ShippingDetails">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

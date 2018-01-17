@@ -24,5 +24,6 @@ namespace ShopEnMart.Data
     
         public virtual CartStatus CartStatus { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Members Members { get; set; }
     }
 }

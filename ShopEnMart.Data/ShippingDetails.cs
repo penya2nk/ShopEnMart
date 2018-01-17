@@ -24,5 +24,7 @@ namespace ShopEnMart.Data
         public string OrderId { get; set; }
         public Nullable<decimal> AmountPaid { get; set; }
         public string PaymentType { get; set; }
+    
+        public virtual Members Members { get; set; }
     }
 }

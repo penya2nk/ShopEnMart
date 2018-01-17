@@ -14,6 +14,14 @@ namespace ShopEnMart.Data
     
     public partial class Members
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Members()
+        {
+            this.Cart = new HashSet<Cart>();
+            this.MemberRole = new HashSet<MemberRole>();
+            this.ShippingDetails = new HashSet<ShippingDetails>();
+        }
+    
         public int MemberId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,5 +31,12 @@ namespace ShopEnMart.Data
         public Nullable<bool> IsDelete { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Cart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MemberRole> MemberRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShippingDetails> ShippingDetails { get; set; }
     }
 }

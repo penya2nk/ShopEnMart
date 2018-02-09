@@ -27,10 +27,10 @@ namespace ShopEnMart.Data
         public string LastName { get; set; }
         public string EmailId { get; set; }
         public string Password { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<bool> IsDelete { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDelete { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public System.DateTime ModifiedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Cart { get; set; }

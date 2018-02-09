@@ -272,6 +272,7 @@ ul.categoriesList > li:hover > a {
     width: 20%;
     float: left;
 }
+
 /*menuBar*/
 .menuBar {
     width: 35%;
@@ -310,6 +311,7 @@ ul.categoriesList > li:hover > a {
     vertical-align: middle;
     line-height: 34px;
 }
+
 /*loginBtn*/
 .langBtn {
     background-color: #4a4a4a;
@@ -1684,10 +1686,11 @@ form.contactForm {
 /*****************signupform**********************/
 .signupForm {
     max-width: 555px !important;
-    padding: 50px;
+    padding: 25px 50px;
     border: 1px solid #e7e7e7;
-    background-color: #fff;
+    background: rgb(236, 212, 227);
     margin: 35px auto 0 !important;
+    border-radius:10px;
 }
 
 .signupBox {

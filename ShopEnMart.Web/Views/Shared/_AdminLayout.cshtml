@@ -1,20 +1,40 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title> : Admin Panel</title>
+    <title>@ViewBag.Title | ShopEnMart - Admin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link href="/CSS/admin_stylesheet.css" rel="stylesheet" type="text/css" /> 
+    <link href="/CSS/admin_stylesheet.css" rel="stylesheet" type="text/css" />
     <link href="/CSS/sweetalert.css" rel="stylesheet" />
-    @RenderSection("css",false)
+    @RenderSection("css", false)
 </head>
-<body>
+<body style="background:url(../images/HomePageBanner1.png) no-repeat center center;">
+    <div class="main-cont">
+        <div class="col-sm-12">
+            <div class="col-sm-3" style="float:left;">
+                @Html.Partial("_AdminMenu")
+            </div>
+            <div class="col-sm-9" style="float:right;">
+                <div class="col-sm-12">
+                    <header class="clearfix">
+                        <div class="menuBar">
+                            <div class="menuMobile">
+                                <ul>
+                                    <li>Hello @(Request.Cookies["MemberName"] != null ? Request.Cookies["MemberName"].Value : "")</li>
+                                    <li><a href="/account/logout"> Log Out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <div class="col-sm-12">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
     <style>
         .LangDropDown {
             float: right;
@@ -29,33 +49,18 @@
         }
     </style>
 
-    <div class="main-cont">
-        <!---->
-        <div class="headertop">
-            <div class="logo"><a href="/">Logo</a></div>
-            <div class="header-right">
-                <span>
-                    Welcome @(Request.Cookies["MemberName"] != null ? Request.Cookies["MemberName"].Value : "")  |  <a href="/account/logout"> Log Out</a>
-                </span>
-
-
-            </div>
-        </div>
-
-        <div class="micCont">
-            @Html.Partial("_AdminMenu")
-            @RenderBody()
-        </div>
-    </div>
-       <script src="~/Scripts/jquery.min.js"></script>    
+    <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/sweetalert-dev.js"></script>
     <script src="~/Scripts/admin_function.js"></script>
     <script src="~/Scripts/CustomFunction.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script> 
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
     <link href="~/CSS/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     @RenderSection("js", false)
 </body>
 </html>

@@ -9,27 +9,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta charset="UTF-8">
-    @if (!string.IsNullOrEmpty(ViewBag.MetaKeywords))
-    {
-        <meta name="keywords" content="@ViewBag.MetaKeywords">
-    }
-    @if (!string.IsNullOrEmpty(ViewBag.MetaPhrase))
-    {
-        <meta name="phrase" content="@ViewBag.MetaPhrase">
-    }
-    @if (!string.IsNullOrEmpty(ViewBag.MetaDescription))
-    {
-        <meta name="description" content="@ViewBag.MetaDescription">
-    }
-    <!--css-->
+
     <link rel="stylesheet" href="/CSS/stylesheet.css" media="all">
     <link rel="stylesheet" href="/CSS/owl.carousel.css">
     <link href="~/CSS/CustomStyleSheet.css" rel="stylesheet" />
     <link href="/CSS/sweetalert.css" rel="stylesheet" />
     @RenderSection("CSS", false)
     <script type="text/javascript" src="/Scripts/jquery.min.js"></script>
-    <!--css-->
-    <title> @ViewBag.MetaTitle </title>
+
+    <title>@ViewBag.Title | ShopEnMart</title>
 </head>
 
 <body class="@((Request.Url.AbsolutePath.ToLower() != "/" && Request.Url.AbsolutePath.ToLower() != "/home" && Request.Url.AbsolutePath.ToLower() != "/home/index") ? "bgColor" : "")">
@@ -40,7 +28,7 @@
             <div class="browseCategories">
                 <button type="button" class="categoriesBtn"><img src="/Images/toggleIcon.png" alt="img" /><span>Browse Categories</span></button>
             </div>
-            <div class="logoBar"><a href="/home/index"><img src="/Images/Logo.jpg" alt="logo" /></a></div>
+            @*<div class="logoBar"><a href="/home/index"><img src="/Images/Logo.jpg" alt="logo" /></a></div>*@
             <div class="menuBar">
                 <div class="menuMobile">
                     <ul>
@@ -48,11 +36,12 @@
                         {
                             <li>Hello @(Request.Cookies["MemberName"] != null && !string.IsNullOrEmpty(Request.Cookies["MemberName"].Value) ? Request.Cookies["MemberName"].Value : "User")</li>
                             <li><a href="/shopping/mycart">Cart Items</a></li>
-                             <li><a href="/account/logout">Logout</a></li>
+                            <li><a href="/account/logout">Logout</a></li>
                         }
                         else
                         {
                             <li><a href="javascript:void(0)" class="loginpopup">Login</a></li>
+                            <li><a href="/admin/login">Admin Login</a></li>
                             <li><a href="/account/register">Sign Up</a></li>
                         }
                     </ul>

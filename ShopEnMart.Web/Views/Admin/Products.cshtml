@@ -5,16 +5,14 @@
 }
 
 <div class="rightpart">
-    <div class="sechBx clearfix">
-        <div class="bretcrum">Dashboard</div>
-    </div>
     <div class="dashBx">
-        <div class="dashboardHD"> Products</div>
-        <div id="AddNewPage">
-            <a href="/Admin/AddProduct" class="AddNewContent">
+        <h1 class="col-sm-12 bg-primary" style="color: #fff;">@ViewBag.Title.ToUpper()</h1>
+        <div id="AddNewPage" class="pull-right">
+            <a href="/Admin/AddProduct" class="btn btn-success">
                 Add New Product
             </a>
         </div>
+        <br />
         <div class="dashTable" id="rootId">
             @if (Model.Count > 0)
             {

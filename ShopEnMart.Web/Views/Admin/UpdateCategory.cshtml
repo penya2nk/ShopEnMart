@@ -1,20 +1,15 @@
 ﻿@model ShopEnMart.Models.CategoryDetail
 @{
-    ViewBag.Title = "CategoryDetail";
+    ViewBag.Title = Request.Url.ToString().ToLower().Contains("addcategory") ? "Add New Category" : "Update Category";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="rightpart">
-    <div class="sechBx clearfix">
-        <div class="bretcrum"><a href="#">Dashboard</a>&nbsp; » <span>Form</span></div>
-    </div>
     <div class="dashBx">
         @using (Html.BeginForm("UpdateCategory", "Admin", FormMethod.Post, new {enctype="multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            <div class="dashboardHD">
-                @(Request.Url.ToString().ToLower().Contains("addcategory") ? "Add Category" : "Update Category")
-            </div>
+            <h1 class="col-sm-12 bg-primary" style="color: #fff;">@ViewBag.Title.ToUpper()</h1>
             <div class="dashformBx  dashformBx2 clearfix">
                 @Html.HiddenFor(m => m.CategoryId)
                 <div class="dashfrm-L">

@@ -59,20 +59,9 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="dbo\" />
-    <Folder Include="dbo\Tables\" />
-    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="ShopEnMart.Sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Cart.sql" />
-    <Build Include="dbo\Tables\CartStatus.sql" />
-    <Build Include="dbo\Tables\Category.sql" />
-    <Build Include="dbo\Tables\MemberRole.sql" />
-    <Build Include="dbo\Tables\Product.sql" />
-    <Build Include="dbo\Tables\Roles.sql" />
-    <Build Include="dbo\Tables\ShippingDetails.sql" />
-    <Build Include="dbo\Tables\Members.sql" />
-    <Build Include="dbo\Stored Procedures\MemberShoppingCartDetails.sql" />
-    <Build Include="dbo\Stored Procedures\Search.sql" />
+    <Build Include="ShopEnMart.Sql\ShopEnMart.Sql" />
   </ItemGroup>
 </Project>

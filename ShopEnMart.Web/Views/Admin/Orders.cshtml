@@ -5,11 +5,8 @@
     var orders = Model.GroupBy(i => i.ProductId).Select(i => i.FirstOrDefault()).ToList();
 }
 <div class="rightpart">
-    <div class="sechBx clearfix">
-        <div class="bretcrum">Dashboard</div>
-    </div>
     <div class="dashBx">
-        <div class="dashboardHD"> Orders</div>
+        <h1 class="col-sm-12 bg-primary" style="color: #fff;">@ViewBag.Title.ToUpper()</h1>
         <div class="dashTable" id="rootId">
             @if (orders.Count() > 0)
             {

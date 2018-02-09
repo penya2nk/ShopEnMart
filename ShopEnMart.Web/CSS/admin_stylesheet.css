@@ -183,7 +183,7 @@ ul {
     width: 100%;
 }
 
-.leftPart {
+/*.leftPart {
     background: #fff;
     width: 270px;
     height: 100%;
@@ -191,7 +191,7 @@ ul {
     border-right: #e5e5e5 solid 1px;
     top: 58px;
     overflow: auto;
-}
+}*/
 
 .naviList {
     padding: 15px;
@@ -298,10 +298,10 @@ ul.subnav li a.current {
 }
 
 /*------------*/
-.rightpart {
+/*.rightpart {
     width: 100%;
     padding-left: 270px;
-}
+}*/
 
 .sechBx {
     padding: 7px 20px;
@@ -750,7 +750,6 @@ ul.subnav li a.current {
     color: green;
     float: right;
     /*margin-bottom: 5px;*/
-    font-size: 15px;
     text-decoration: underline;
 }
 
@@ -854,5 +853,75 @@ ul.subnav li a.current {
         font-weight: bold;
     }
 
-    .Report{    height: 40px !important;
-    Padding-top: 10px!important ;}
+.Report {
+    height: 40px !important;
+    Padding-top: 10px !important;
+}
+
+.AdminLogin {
+    margin: 10% 30%;
+    padding: 25px 100px;
+    background: rgb(236, 212, 227);
+}
+
+.AdminForgetPassword {
+    margin: 15% 30%;
+    padding: 25px 100px;
+    background: rgb(236, 212, 227);
+}
+
+.dashinp {
+    margin-bottom: 10px;
+}
+
+.SignIn {
+    text-align: center;
+    padding: 5PX 30PX;
+    background-color: rgb(30, 95, 209);
+    color: #FFF;
+    margin: 10% 0 10% 30%;
+}
+
+.forgot {
+    margin-top: 8%;
+    font-size: 14px;
+}
+/*menuBar*/
+.menuBar {
+    width: 35%;
+    float: right;
+    text-align: right;
+}
+
+    .menuBar ul {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+        .menuBar ul li {
+            display: inline-block;
+            list-style: none;
+        }
+
+            .menuBar ul li a {
+                font-size: 13px;
+                color: #333333;
+                text-transform: uppercase;
+                padding: 0 10px;
+            }
+
+                .menuBar ul li a:hover {
+                    color: #316984;
+                }
+
+                .menuBar ul li a.active {
+                    color: #005faa;
+                    font-weight: 600;
+                }
+
+.menuMobile {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 34px;
+}
+

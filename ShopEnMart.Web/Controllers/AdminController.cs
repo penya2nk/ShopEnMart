@@ -33,15 +33,29 @@ namespace ShopEnMart.Controllers
         public ActionResult Index(string returnUrl)
         {
             if (CheckAlreadyLoggedIn())
+            {
                 return Redirect(returnUrl != null ? returnUrl : "/admin/dashboard");
+            }
             else
             {
                 LoginViewModel loginModel = new LoginViewModel();
                 loginModel.UserEmailId = Request.Cookies["RememberMe_UserEmailId"] != null ? Request.Cookies["RememberMe_UserEmailId"].Value : "";
                 loginModel.Password = Request.Cookies["RememberMe_Password"] != null ? Request.Cookies["RememberMe_Password"].Value : "";
                 ViewBag.ReturnUrl = returnUrl;
-                return View(loginModel);
+                return Redirect(returnUrl != null ? returnUrl : "/admin/login");
+                //return View(loginModel);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            return View();
         }
 
         /// <summary>
@@ -76,7 +90,7 @@ namespace ShopEnMart.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Index(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +120,7 @@ namespace ShopEnMart.Controllers
                         Response.Cookies["RememberMe_UserEmailId"].Expires = DateTime.Now.AddDays(-1);
                         Response.Cookies["RememberMe_Password"].Expires = DateTime.Now.AddDays(-1);
                     }
-                    return Redirect(returnUrl != null ? returnUrl : "/admin/dashboard");
+                    return Redirect(returnUrl != null ? returnUrl : "/admin/orders");
                 }
                 else
                 {
@@ -152,17 +166,6 @@ namespace ShopEnMart.Controllers
         }
         #endregion
 
-        #region Admin Dashboard ...
-        /// <summary>
-        /// Admin Dashboard
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Dashboard()
-        {
-            return View();
-        }
-        #endregion
-
         /// <summary>
         /// Categories
         /// </summary>
@@ -190,12 +193,8 @@ namespace ShopEnMart.Controllers
         /// <returns></returns>
         public ActionResult UpdateCategory(int categoryId)
         {
-            CategoryDetail cd;
-            if (categoryId != 0)
-                cd =
-                cd = JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unitOfWork.GetRepositoryInstance<ShopEnMart.Data.Category>().GetFirstOrDefault(categoryId)));
-            else
-                cd = new CategoryDetail();
+            CategoryDetail cd = categoryId == 0 ? new CategoryDetail() : JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unitOfWork.GetRepositoryInstance<ShopEnMart.Data.Category>().GetFirstOrDefault(categoryId)));
+
             return View("UpdateCategory", cd);
         }
 
